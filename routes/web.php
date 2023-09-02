@@ -35,8 +35,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('quotations', QuotationController::class);
     Route::get('quotations/{quotation}/view', [QuotationController::class, 'view'])->name('quotations.view');
-
-    Route::resource('users', UserController::class);
+    Route::group(['middleware' => ['useradmin']], function() {
+        Route::resource('users', UserController::class);
+    });
 });
 
 Route::middleware('auth')->group(function () {
